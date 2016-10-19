@@ -15,8 +15,7 @@ func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 		log.Fatalf("could not collect data from nscd command: %v", err)
 	}
 
-	g := prometheus.NewGauge(prometheus.GaugeOpts{Help: "Dummy metric to make the prometheus library happy. It is not used anywhere.", Name: "nscd_dummy_metric"})
-	g.Describe(ch)
+	prometheus.NewGauge(prometheus.GaugeOpts{Help: "Dummy metric to make the prometheus library happy. It is not used anywhere.", Name: "nscd_dummy_metric"}).Describe(ch)
 }
 
 func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
@@ -26,22 +25,29 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		return
 	}
 	for section, d := range data {
-		if section == "nscd configuration" {
-			for _, line := range d {
-				m, ok := configMetrics[line.desc]
-				if !ok {
-					continue
-				}
-				ch <- prometheus.MustNewConstMetric(m, prometheus.GaugeValue, line.val)
-			}
-			continue
-		}
+		var (
+			m        *prometheus.Desc
+			ok       bool
+			pushFunc func()
+		)
+
 		for _, line := range d {
-			m, ok := sectionMetrics[line.desc]
+			if section == "nscd configuration" {
+				m, ok = configMetrics[line.desc]
+				pushFunc = func() {
+					ch <- prometheus.MustNewConstMetric(m, prometheus.GaugeValue, line.val)
+				}
+			} else {
+				m, ok = sectionMetrics[line.desc]
+				pushFunc = func() {
+					ch <- prometheus.MustNewConstMetric(m, prometheus.GaugeValue, line.val, section)
+				}
+			}
 			if !ok {
 				continue
 			}
-			ch <- prometheus.MustNewConstMetric(m, prometheus.GaugeValue, line.val, section)
+			pushFunc()
 		}
+
 	}
 }
