@@ -1,4 +1,5 @@
 nscd configuration:
+
               0  server debug level
          7m  0s  server runtime
               5  current number of threads
@@ -7,7 +8,9 @@ nscd configuration:
              no  paranoia mode enabled
            3600  restart internal
               5  reload count
+
 passwd cache:
+
              no  cache is enabled
              no  cache is persistent
              no  cache is shared
@@ -28,7 +31,9 @@ passwd cache:
               0  number of delays on wrlock
               0  memory allocations failed
             yes  check /etc/passwd for changes
+
 group cache:
+
              no  cache is enabled
              no  cache is persistent
              no  cache is shared
@@ -49,7 +54,9 @@ group cache:
               0  number of delays on wrlock
               0  memory allocations failed
             yes  check /etc/group for changes
+
 hosts cache:
+
             yes  cache is enabled
             yes  cache is persistent
             yes  cache is shared
@@ -70,7 +77,9 @@ hosts cache:
               0  number of delays on wrlock
               0  memory allocations failed
             yes  check /etc/hosts for changes
+
 services cache:
+
              no  cache is enabled
              no  cache is persistent
              no  cache is shared
@@ -91,7 +100,9 @@ services cache:
               0  number of delays on wrlock
               0  memory allocations failed
             yes  check /etc/services for changes
+
 netgroup cache:
+
              no  cache is enabled
              no  cache is persistent
              no  cache is shared

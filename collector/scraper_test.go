@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	"testing"
+	"time"
 )
 
 func TestParse(t *testing.T) {
@@ -29,5 +30,38 @@ func TestParse(t *testing.T) {
 	}
 	if data["hosts cache"][12].val != 78 {
 		t.Fail()
+	}
+}
+
+func TestValueParser(t *testing.T) {
+	type testData struct {
+		raw          string
+		shouldReturn float64
+	}
+
+	td := []testData{
+		{"52%", 52},
+		{"127", 127},
+		{"-123", -31},
+		{"16s", 16 * time.Second.Seconds()},
+		{"255h 32s", 255*time.Hour.Seconds() + 32*time.Second.Seconds()},
+	}
+
+	for _, d := range td {
+		t.Run(d.raw, func(t *testing.T) {
+			var (
+				r   float64
+				err error
+			)
+			for _, vp := range vps {
+				r, err = vp(d.raw)
+				if err == nil {
+					break
+				}
+			}
+			if r != d.shouldReturn || err != nil {
+				t.Fail()
+			}
+		})
 	}
 }
