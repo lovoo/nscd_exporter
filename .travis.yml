@@ -15,8 +15,6 @@ deploy:
   api_key:
     secure: IRhngX4ufFNDv8sWY1KhAfb277XZA7tayCxmex46Uo7fURx6qzGNnNICvLqnSw9rxNwzZlgZYNltjm8PpSjCsIt3MXZlk2MCuAaVCefGXT98UC37L5h+Yqqoe7nIiQZDxFBlPJteszcVk/yuIhKU+LGntMKEWogsdinKfZQlkFX4p5ZyycaJT7MGUHZ7Y/gnrZPUk9b6Ybd2MZ189/Z8KRLMrbIV/v7tKqVu/OmLVo7HnpGR6En2wzskC7TijahAD+npBCyQbqJn2FPPCxDUF8ChtPZCpvRX3fmrdYU5DvVEUaoTSVluDCsmD0zUEijdKzjwt4VPqddOz6bS+jfOphKt7+HL6q6ZeAEVqNXI1oAMsKtTsyJ8F4e/9hMEdIXA4PzQ7gW+6sOMdZ9iLjSMiBldaGpuUh7drkcGnzCs2dJfhu4u5Jb9xWlnDUvHeDHuEZdC82XR4YkQIRYq0wybOoNHekk48pzu69JD36+xH1VZU+ftrix8kr+AGzGb5xapvXzwPMQ5yo6j3mtt0ieqITb3KsznIiKSgimeFugYO7j2mqmQ9cfGFMjg5HY1cmI5gNu9F/NNfifjDMiu+n2El5gKLvbKgaU1Tdm2FEHowBqzNM+yhJlPJg2Me1THg/SO12hb+6PUueFs0iTiflys9g9xMA36xFbr8K11aYQvT2g=
   file:
-    - build/nscd_exporter_$TRAVIS_TAG_386.deb
-    - build/nscd_exporter_$TRAVIS_TAG_amd64.deb
     - build/nscd_exporter_linux_386
     - build/nscd_exporter_linux_amd64
     - build/nscd_exporter_linux_arm
