@@ -42,7 +42,7 @@ func TestValueParser(t *testing.T) {
 	td := []testData{
 		{"52%", 52},
 		{"127", 127},
-		{"-123", -31},
+		{"-31", -31},
 		{"16s", 16 * time.Second.Seconds()},
 		{"255h 32s", 255*time.Hour.Seconds() + 32*time.Second.Seconds()},
 	}
