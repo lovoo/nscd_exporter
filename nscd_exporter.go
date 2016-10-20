@@ -11,11 +11,15 @@ import (
 )
 
 var (
+	Version = "dev"
+
 	listenAddress = flag.String("web.listen", ":9119", "Address on which to expose metrics and web interface.")
 	nscdPath      = flag.String("nscd.path", "nscd", "Path to nscd.")
 )
 
 func main() {
+	log.Infof("Staring NSCD Exporter for Prometheus, Version: %v", Version)
+
 	flag.Parse()
 	prometheus.MustRegister(&collector.Exporter{NSCDPath: *nscdPath})
 

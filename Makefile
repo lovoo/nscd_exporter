@@ -7,7 +7,7 @@ GOX_ARGS     = -output="$(BUILD_DIR)/{{.Dir}}_{{.OS}}_{{.Arch}}" -osarch="linux/
 
 .PHONY: build
 build:
-	GOBIN=$(BUILD_DIR) $(GO) install
+	GOBIN=$(BUILD_DIR) $(GO) install -ldflags '-X main.Version=$(VERSION)'
 
 .PHONY: deb
 deb:
