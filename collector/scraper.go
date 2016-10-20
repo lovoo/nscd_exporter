@@ -66,6 +66,10 @@ func parse(buf []byte) (map[string][]dataLine, error) {
 		lines   = strings.Split(string(buf), "\n")
 	)
 	for _, line := range lines {
+		// skip empty lines
+		if len(line) == 0 {
+			continue
+		}
 		// new section
 		if !strings.HasPrefix(line, " ") {
 			section = strings.TrimSuffix(line, ":")

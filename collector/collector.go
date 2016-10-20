@@ -1,6 +1,8 @@
 package collector
 
 import (
+	"strings"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/log"
 )
@@ -40,7 +42,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 			} else {
 				m, ok = sectionMetrics[line.desc]
 				pushFunc = func() {
-					ch <- prometheus.MustNewConstMetric(m, prometheus.GaugeValue, line.val, section)
+					ch <- prometheus.MustNewConstMetric(m, prometheus.GaugeValue, line.val, strings.TrimSpace(strings.TrimSuffix(section, "cache")))
 				}
 			}
 			if !ok {
