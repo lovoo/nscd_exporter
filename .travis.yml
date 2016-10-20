@@ -8,7 +8,7 @@ script:
 
 before_deploy:
   - gem install fpm package_cloud
-  - make release-build deb
+  - make release-build deb release-package
 
 deploy:
   provider: releases
