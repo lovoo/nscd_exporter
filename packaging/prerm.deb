@@ -3,7 +3,7 @@ set -e
 
 if [ $1 = "remove" ] ; then
     if which systemctl > /dev/null; then
-  systemctl --no-reload disable nscd-exporter || :
-  systemctl stop nscd-exporter || :
+      systemctl --no-reload disable nscd-exporter || :
+      systemctl stop nscd-exporter || :
     fi
 fi

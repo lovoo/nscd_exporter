@@ -34,7 +34,7 @@ build-deb:
 		--url https://github.com/lovoo/nscd_exporter \
 		--description "Exports statistics from NSCD (Name service caching daemon) and publishes them for scraping by Prometheus." \
 		--architecture $(ARCH) \
-		$(BUILD_DIR)/$(PROJECT_NAME)_linux_$(ARCH)=/usr/bin/ncsd_exporter \
+		$(BUILD_DIR)/$(PROJECT_NAME)_linux_$(ARCH)=/usr/bin/nscd_exporter \
 		packaging/nscd-exporter.service=/lib/systemd/system/nscd-exporter.service
 
 .PHONY: clean
