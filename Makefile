@@ -11,8 +11,10 @@ build:
 
 .PHONY: deb
 deb:
-	make build-deb ARCH=amd64
-	make build-deb ARCH=386
+	make build-deb ARCH=amd64 GOARCH=amd64
+	make build-deb ARCH=i386 GOARCH=386
+	make build-deb ARCH=arm64 GOARCH=arm64
+	make build-deb ARCH=armhf GOARCH=arm
 
 .PHONY: build-deb
 build-deb:
@@ -34,7 +36,7 @@ build-deb:
 		--url https://github.com/lovoo/nscd_exporter \
 		--description "Exports statistics from NSCD (Name service caching daemon) and publishes them for scraping by Prometheus." \
 		--architecture $(ARCH) \
-		$(BUILD_DIR)/$(PROJECT_NAME)_linux_$(ARCH)=/usr/bin/nscd_exporter \
+		$(BUILD_DIR)/$(PROJECT_NAME)_linux_$(GOARCH)=/usr/bin/nscd_exporter \
 		packaging/nscd-exporter.service=/lib/systemd/system/nscd-exporter.service
 
 .PHONY: release-package
