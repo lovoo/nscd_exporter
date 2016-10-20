@@ -37,6 +37,11 @@ build-deb:
 		$(BUILD_DIR)/$(PROJECT_NAME)_linux_$(ARCH)=/usr/bin/nscd_exporter \
 		packaging/nscd-exporter.service=/lib/systemd/system/nscd-exporter.service
 
+.PHONY: release-package
+release-package:
+	package_cloud push lovoo/prometheus-exporters/debian/jessie build/*.deb
+	package_cloud push lovoo/prometheus-exporters/debian/stretch build/*.deb
+
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)/* || true
