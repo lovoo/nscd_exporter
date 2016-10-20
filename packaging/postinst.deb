@@ -6,10 +6,6 @@ case "$1" in
     ;;
 
   configure)
-    if ! id -u nscd_exporter >/dev/null 2>/dev/null; then
-      adduser --disabled-login --gecos 'NSCD Metrics Exporter' nscd_exporter
-    fi
-
     if which systemctl > /dev/null; then
       systemctl daemon-reload || :
       systemctl enable nscd-exporter || :
