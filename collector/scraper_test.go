@@ -45,6 +45,7 @@ func TestValueParser(t *testing.T) {
 		{"-31", -31},
 		{"16s", 16 * time.Second.Seconds()},
 		{"255h 32s", 255*time.Hour.Seconds() + 32*time.Second.Seconds()},
+		{"1d 20h  4m 33s", 44*time.Hour.Seconds() + 4*time.Minute.Seconds() + 33*time.Second.Seconds()},
 	}
 
 	for _, d := range td {

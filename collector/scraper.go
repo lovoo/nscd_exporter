@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os/exec"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -45,8 +46,29 @@ var vps = []valueParser{
 	},
 	// parse duration
 	func(rawValue string) (float64, error) {
-		d, err := time.ParseDuration(strings.Replace(rawValue, " ", "", -1))
-		return float64(d.Seconds()), err
+		s := strings.Replace(rawValue, " ", "", -1)
+
+		// determine days, because time.ParseDuration can't parse it
+		regex, err := regexp.Compile("(\\d)*d")
+		if err != nil {
+			return 0, err
+		}
+		var (
+			offset    int // additional days
+			dayStrLen int
+		)
+		ds := regex.FindStringSubmatch(s)
+		if len(ds) > 1 {
+			days, err := strconv.Atoi(ds[1])
+			if err != nil {
+				return 0, err
+			}
+			dayStrLen = len(ds[0])
+			offset += days * 24 * int(time.Hour.Seconds())
+		}
+		withoutDays := s[dayStrLen:]
+		d, err := time.ParseDuration(withoutDays)
+		return float64(int(d.Seconds()) + offset), err
 	},
 }
 
